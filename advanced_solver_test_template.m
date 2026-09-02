@@ -26,14 +26,14 @@ function advanced_solver_test_template()
     % plot(x_sol,test_func01(x_sol),'go','markerfacecolor','g','markersize',5);
     
 
-    % %Secant method example test
-    % x0_guess = -5;
-    % x1_guess = 2;
-    % plot(x0_guess,test_func01(x0_guess),'bo','markerfacecolor','b','markersize',5);
-    % plot(x1_guess,test_func01(x1_guess),'ko','markerfacecolor','k','markersize',5);
-    % 
-    % x_sol = secant_solver(@test_func01,x0_guess,x1_guess,dxtol,ftol,max_iter,dxmax);
-    % plot(x_sol,test_func01(x_sol),'go','markerfacecolor','g','markersize',5);
+    %Secant method example test
+    x0_guess = -5;
+    x1_guess = 2;
+    plot(x0_guess,test_func01(x0_guess),'bo','markerfacecolor','b','markersize',5);
+    plot(x1_guess,test_func01(x1_guess),'ko','markerfacecolor','k','markersize',5);
+
+    x_sol = secant_solver(@test_func01,x0_guess,x1_guess,dxtol,ftol,max_iter,dxmax);
+    plot(x_sol,test_func01(x_sol),'go','markerfacecolor','g','markersize',5);
 
     
     % % Bisection method example test

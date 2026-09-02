@@ -50,7 +50,12 @@ end
 
 
 function x = bisection_solver(fun,x_left,x_right)
-    x = x_left+1; %this is just dummy code. replace this with your code
+    temp_left = 0;
+    temp_right = 0;
+    x_mid = x_left+x_right/2; 
+    if fun(x_left)> 0 && fun(x_mid)<0:
+        
+    end
 end
 
 %Note that fun(x) should output [f,dfdx], where dfdx is the derivative of f

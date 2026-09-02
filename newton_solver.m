@@ -13,5 +13,31 @@
 %   x: estimate for root of fun
 %   exit_flag: an integer indicating whether or not the solver succeeded
 function [x, exit_flag] = newton_solver(fun,x0,dxtol,ftol,max_iter,dxmax)
-    %your code here
+    current_guess = x0;
+    for i = 1:max_iter
+        [fval,dfdx] = fun(current_guess);
+        future_guess = current_guess-fval/dfdx;
+        if future_guess - current_guess > dxmax
+            return
+        end
+        if abs(future_guess-current_guess) < dxtol
+            disp("dxtol")
+            disp(future_guess)
+            x = future_guess;
+            exit_flag = 0;
+            return
+        end
+        if abs(fun(future_guess))<ftol
+            disp("ftol")
+            disp(future_guess)
+            x = future_guess;
+            exit_flag = 0;
+            return
+        end
+        current_guess = future_guess;
+        
+    end
+    disp("iter lim")
+    x= current_guess;
+    exit_flag = 1;
 end
