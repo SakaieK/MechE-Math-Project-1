@@ -14,24 +14,23 @@
 function [x, exit_flag] = secant_solver(fun,x0, x1,dxtol,ftol,max_iter,dxmax)
     loc_x1 = x1;
     loc_x0 = x0;
+
+    [fx1, ~] = fun(loc_x1);
+    [fx0, ~] = fun(loc_x0);
     for i = 1:max_iter
-        [fx1, ~] = fun(loc_x1);
-        [fx0, ~] = fun(loc_x0);
         
         if abs(loc_x1-loc_x0) < dxtol
-            disp("dxtol")
-            disp(loc_x1)
             x = loc_x1;
             exit_flag = 0;
             return
         end
+
         if abs(fx1)<ftol
-            disp("ftol")
-            disp(loc_x1)
             x = loc_x1;
             exit_flag = 0;
             return
         end
+
 
         x2 = loc_x1-fx1*((loc_x1-loc_x0)/(fx1-fx0));
         if abs(x2-loc_x1) > dxmax
@@ -41,11 +40,12 @@ function [x, exit_flag] = secant_solver(fun,x0, x1,dxtol,ftol,max_iter,dxmax)
             return
         end
         loc_x0 = loc_x1;
+        fx0 = fx1;
         loc_x1 = x2;
+        [fx1, ~] = fun(loc_x1);
         
     end
-    disp("iter lim")
-    disp(loc_x1)
     x = loc_x1;
     exit_flag = 1;
+    
 end

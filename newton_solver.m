@@ -16,28 +16,36 @@ function [x, exit_flag] = newton_solver(fun,x0,dxtol,ftol,max_iter,dxmax)
     current_guess = x0;
     for i = 1:max_iter
         [fval,dfdx] = fun(current_guess);
+        
+        if abs(fval)<ftol
+            x = current_guess;
+            exit_flag = 0;
+            return
+        end
+        
+        % Protect against division by zero / tiny derivative
+        if dfdx < 1e-14
+            x = current_guess;
+            exit_flag = 1;
+            return
+        end
+        
         future_guess = current_guess-fval/dfdx;
-        if future_guess - current_guess > dxmax
+
+        if abs(future_guess - current_guess) > dxmax
+            x = current_guess;
+            exit_flag = 1;
             return
         end
         if abs(future_guess-current_guess) < dxtol
-            disp("dxtol")
-            disp(future_guess)
             x = future_guess;
             exit_flag = 0;
             return
         end
-        if abs(fun(future_guess))<ftol
-            disp("ftol")
-            disp(future_guess)
-            x = future_guess;
-            exit_flag = 0;
-            return
-        end
+       
         current_guess = future_guess;
         
     end
-    disp("iter lim")
     x= current_guess;
     exit_flag = 1;
 end
